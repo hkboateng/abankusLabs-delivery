@@ -28,7 +28,7 @@
     "core-js": "^2.5.4",
     "hammerjs": "^2.0.8",
     "ioredis": "^4.16.0",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "lodash": ">=4.17.12",
     "mixin-deep": ">=1.3.2",
     "ngx-bootstrap": "^4.2.0",
