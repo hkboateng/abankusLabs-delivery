@@ -12,8 +12,8 @@
         </a>
         <a href="/contact" class="btn btn-sm ">Contact</a>
         <a href="/chatdemo" class="btn btn-sm ">Demo</a>
-        <a *ngIf="isAuth" class="btn btn-sm btn-outline-secondary" href="/login">Logout</a>
-        <a *ngIf="!isAuth" class="btn btn-sm btn-outline-secondary" href="/login">Login</a>
+        <a *ngIf="!isAuth" class="btn btn-sm btn-outline-secondary" href="/login"><i class="fa fa-3x fa-sign-in"></i></a>
+        <a *ngIf="isAuth" class="btn btn-sm btn-outline-secondary" href="/login"><i class="fa fa-3x fa-user"></i></a>
 
       </div>
     </div>

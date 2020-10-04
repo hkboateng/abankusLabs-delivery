@@ -1,86 +1,89 @@
 <div class="container">
   
-    <h4 class="mb-3">Signup for Platform</h4>
+    <h4 class="mb-3">Signup</h4>
+    Business
+    <label class="switch">
+      <input type="checkbox" name="signupType" [(ngModel)]="isChecked">
+      <span class="slider"></span>
+    </label>
+    Individual {{isChecked}}
     <div class="row">
-      <div class="col-md-5">
-        Testing
-      </div>
-
-    <div class="col-md-7 p-2 order-md-1">
+      <div class="col-md-12 order-md-1">
         <div id="error-alert" class="alert" *ngIf="signupError">{{errorMessage}}</div>
         <form class="needs-validation" novalidate="" [formGroup] = "signupGrp" (ngSubmit)="onSubmit(this.signupGrp)">
-          <div class="row">
-            <div class="col-md-6 mb-3"  [ngClass]="displayFieldCss('firstname').value">
-              <label for="firstname">First name</label>
-              <input type="text" formControlName="firstname" class="form-control" id="firstname" placeholder="" value="" required>
-              <app-display-field-messages
-                [displayError]="isFieldValid('firstname')" 
-                errorMsg="First name is invalid">
-            </app-display-field-messages>
-            </div>
-            <div class="col-md-6 mb-3">
-              <label for="lastName">Last name</label>
-              <input type="text" formControlName="lastname" class="form-control" id="lastName" placeholder="" value="" required>
-              <app-display-field-messages
-                [displayError]="isFieldValid('lastname')" 
-                errorMsg="Valid Last name is required">
-            </app-display-field-messages>
-            </div>
-          </div>
-          <div class="row">
-              <div class="col-md-6 mb-3">
-                  <label for="emailAddress">Email Address</label>
-                  <input type="email" formControlName="emailAddress" class="form-control" id="emailAddress" placeholder="you@example.com" required>
-                  <app-display-field-messages
-                    [displayError]="isFieldValid('emailAddress')" 
-                    errorMsg="Valid Email Address is required">
-                </app-display-field-messages>
-                </div>
-              <div class="col-md-6 mb-3">
-                  <label for="phoneNumber">Phone Number</label>
-                  <input type="text" formControlName="phoneNumber" class="form-control" id="phoneNumber" placeholder="374-999-9999" required>
-                  <app-display-field-messages
-                    [displayError]="isFieldValid('phoneNumber')" 
-                    errorMsg="Valid Phone Number is required">
-                  </app-display-field-messages>
-                </div>
-          </div>
-          <div class="row">
-          <div class="col-md-6 mb-3">
-            <label for="username">Username</label>
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <span class="input-group-text">@</span>
-              </div>
-              <input type="text" class="form-control" formControlName="username" id="username" placeholder="Username" required>
-            </div>
-            <app-display-field-messages
-            [displayError]="isFieldValid('username')" 
-            errorMsg="Valid Username is required">
-          </app-display-field-messages>            
-          </div>
-          </div>
-          <div class="row">
-              <div class="col-md-6 mb-3">
-                <label for="password">Password</label>
-                <input type="password" class="form-control" formControlName="password" id="password" placeholder="" value="" required>
-                <app-display-field-messages
-                  [displayError]="isFieldValid('password')" 
-                  errorMsg="Password is invalid">
-                </app-display-field-messages>
-              </div>
-
-            </div>
+          <div class="row" *ngIf="!isChecked">
+            <div class="col-md-12">
+            <h5>Business Information</h5>
+            <hr/>
             <div class="row">
-              <div class="col-md-6 mb-3">
-                <label for="cf-password">Confirm Password</label>
-                <input type="password" class="form-control" formControlName="cf_password" id="cf-password" placeholder="" value="" required>
-                <app-display-field-messages
-                  [displayError]="isFieldValid('firstname')" 
-                  errorMsg="Password does not match or is Invalid">
-                </app-display-field-messages>
+              <div class="col-md-12 mb-3" >
+                <label for="firstname">Business Name</label>
+                <input type="text" formControlName="businessName" class="form-control" id="businessName" placeholder="" value="" required>
+
+              </div>  
+            </div>
+            </div>  
+          </div>        
+          <div class="row">  
+            <div class="col-md-12">
+              <h4>Contact Information</h4>
+              <hr>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="firstname">First Name</label>
+                  <input type="text" formControlName="firstname" class="form-control" id="firstname" placeholder="" value="" required>
+
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="lastName">Last name</label>
+                  <input type="text" formControlName="lastname" class="form-control" id="lastName" placeholder="" value="" required>
+
+                </div>
+              </div>
+              <div class="row">
+                  <div class="col-md-6 mb-3">
+                      <label for="emailAddress">Email Address</label>
+                      <input type="email" formControlName="emailAddress" class="form-control" id="emailAddress" placeholder="you@example.com" required>
+
+                    </div>
+                  <div class="col-md-6 mb-3">
+                      <label for="phoneNumber">Phone Number</label>
+                      <input type="text" formControlName="phoneNumber" class="form-control" id="phoneNumber" placeholder="374-999-9999" required>
+
+                    </div>
               </div>
             </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <h4>Login Information</h4>
+              <hr>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="username">Username</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">@</span>
+                    </div>
+                    <input type="text" class="form-control" formControlName="username" id="username" placeholder="Username" required>
+                  </div>
+         
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="password">Password</label>
+                  <input type="password" class="form-control" formControlName="password" id="password" placeholder="" value="" required>
+
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="cf-password">Confirm Password</label>
+                  <input type="password" class="form-control" formControlName="cf_password" id="cf-password" placeholder="" value="" required>
+
+                </div>
+              </div>
+            </div>
+          </div>
           <hr class="mb-4">
           <button class="btn btn-primary mr-2" type="submit">Register</button>
           <button type="button"class="ml-2 btn btn-md btn-secondary " (click)="onReset()">Reset</button>

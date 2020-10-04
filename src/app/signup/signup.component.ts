@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, SimpleChanges , OnChanges} from '@angular/core';
 import { FormGroup, FormControl, Validators, } from '@angular/forms';
 import {SignupRequest, SignupResponse} from './signup';
 import { SignupService } from './signupService.service';
@@ -9,17 +9,21 @@ import {Router} from '@angular/router';
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.css']
+  styleUrls: ['./signup.component.scss']
 })
-export class SignupComponent implements OnInit {
+export class SignupComponent implements OnInit, OnChanges {
 
-
+  isChecked: boolean = false;
+  businessSignup: boolean = this.isChecked;
+  individualSignup:boolean =  !this.isChecked;
   @Output() redirect: EventEmitter<string> = new EventEmitter();
+  
   pageName = 'Sign Up';
   signupError = false;
   errorMessage = undefined;
   register: SignupRequest = null;
   signupGrp = new FormGroup({
+    businessName: new FormControl(null, Validators.required),
     firstname: new FormControl(null, Validators.required),
     lastname: new FormControl(null, Validators.required),
     phoneNumber: new FormControl('', Validators.required),
@@ -36,6 +40,10 @@ export class SignupComponent implements OnInit {
   ngOnInit() {
   }
 
+  ngOnChanges(changes: SimpleChanges){
+    this.isChecked = changes.isChecked.currentValue;
+    console.log(this.isChecked)
+  }
   onSubmit(signup): void{
     if(this.signupGrp.valid){
       this.register = new SignupRequest(signup);
@@ -53,9 +61,7 @@ export class SignupComponent implements OnInit {
     }
 
   }
-  isFieldValid(field: string) {
-    return !this.signupGrp.get(field).valid && this.signupGrp.get(field).touched;
-  }
+
   processResponse(response: SignupResponse) {
     if (response.status) {
       this.router.navigateByUrl('/login');
@@ -65,12 +71,7 @@ export class SignupComponent implements OnInit {
       return;
     }
   }
-  displayFieldCss(field: string) {
-    return {
-      'has-error': this.isFieldValid(field),
-      'has-feedback': this.isFieldValid(field)
-    };
-  }
+
   validateAllFormFields(formGroup: FormGroup) {         //{1}
   Object.keys(formGroup.controls).forEach(field => {  //{2}
     const control = formGroup.get(field);  

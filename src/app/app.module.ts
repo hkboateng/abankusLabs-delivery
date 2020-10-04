@@ -6,7 +6,6 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './login/login.component';
 import { AuthComponent } from './auth/auth.component';
 import {AuthGuardService as AuthGuard} from '../app/auth/auth-guard.service';
-import { JwtModule } from '@auth0/angular-jwt';
 import { HttpClientModule } from '@angular/common/http';
 import { SignupComponent } from './signup/signup.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -14,10 +13,11 @@ import { HeaderComponent } from './header/header.component';
 import { IndexComponent } from './index/index.component';
 import { ContactComponent } from './contact/contact.component';
 import { DisplayFieldMessagesComponent } from './display-field-messages/display-field-messages.component';
-import { ChatbotComponent } from './chatbot/chatbot.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ChatbotRasaModule } from 'angular-chat-widget-rasa';
-import { ChatbotdemoComponent } from './chatbotdemo/chatbotdemo.component';
+import { StoreModule } from '@ngrx/store';
+import { reducers, metaReducers } from './reducers';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
 export function tokenGetter() {
   return localStorage.getItem('access_token');
 }
@@ -32,25 +32,23 @@ export function tokenGetter() {
     IndexComponent,
     ContactComponent,
     DisplayFieldMessagesComponent,
-    ChatbotComponent,
-    ChatbotdemoComponent,
     
   ],
   imports: [
-    ChatbotRasaModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    JwtModule.forRoot({
-      config: {
-        tokenGetter: tokenGetter,
-        whitelistedDomains: ['example.com'],
-        blacklistedRoutes: ['example.com/examplebadroute/']
+    BrowserAnimationsModule,
+    StoreModule.forRoot(reducers, {
+      metaReducers, 
+      runtimeChecks: {
+        strictStateImmutability: true,
+        strictActionImmutability: true,
       }
     }),
-    BrowserAnimationsModule
+    !environment.production ? StoreDevtoolsModule.instrument() : []
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent]
